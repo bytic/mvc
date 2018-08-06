@@ -5,7 +5,8 @@ namespace Nip\Mvc;
 use ArrayAccess;
 
 /**
- * Class Modules.
+ * Class Modules
+ * @package Nip\Mvc
  */
 class Modules implements ArrayAccess
 {
@@ -90,7 +91,9 @@ class Modules implements ArrayAccess
      */
     public function getModulesBaseDirectory()
     {
-        return defined('MODULES_PATH') ? MODULES_PATH : '';
+        return defined('MODULES_PATH') ?
+            MODULES_PATH
+            : app('path') . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR;
     }
 
     /**
