@@ -2,9 +2,8 @@
 
 namespace Nip\Mvc;
 
-use Nip\Container\ServiceProvider\AbstractSignatureServiceProvider;
+use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
 use Nip\Mvc\Sections\SectionsManager;
-
 
 /**
  * Class MvcServiceProvider
@@ -23,7 +22,7 @@ class MvcServiceProvider extends AbstractSignatureServiceProvider
 
     protected function registerModules()
     {
-        $this->getContainer()->singleton('mvc.modules', function () {
+        $this->getContainer()->share('mvc.modules', function () {
             return $this->createModulesProvider();
         });
     }
@@ -42,7 +41,7 @@ class MvcServiceProvider extends AbstractSignatureServiceProvider
 
     protected function registerSections()
     {
-        $this->getContainer()->singleton('mvc.sections', function () {
+        $this->getContainer()->share('mvc.sections', function () {
             return $this->createSectionsManager();
         });
     }

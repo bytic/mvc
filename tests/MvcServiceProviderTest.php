@@ -2,6 +2,7 @@
 
 namespace Nip\Mvc\Tests;
 
+use Nip\Container\Container;
 use Nip\Mvc\Modules;
 use Nip\Mvc\MvcServiceProvider;
 use Nip\Mvc\Sections\SectionsManager;
@@ -15,6 +16,8 @@ class MvcServiceProviderTest extends AbstractTest
     public function testRegister()
     {
         $serviceProvider = new MvcServiceProvider();
+        $serviceProvider->setContainer(new Container());
+
         $serviceProvider->register();
         $container = $serviceProvider->getContainer();
 
