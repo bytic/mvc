@@ -96,8 +96,8 @@ class Section
         $http = request()->getHttp();
 
         $baseUrl = str_replace(
-            '://' . $this->getManager()->getCurrent()->getSubdomain() . '.' . $http->getRootDomain() . '.',
-            '://' . $this->getSubdomain() . '.' . $http->getRootDomain() . '.',
+            '://' . $this->getManager()->getCurrent()->getSubdomain() . '.' . $http->getRootDomain(),
+            '://' . $this->getSubdomain() . '.' . $http->getRootDomain(),
             $baseUrl
         );
 
