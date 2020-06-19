@@ -19,6 +19,35 @@ class SectionsManager
     protected $sections = null;
 
     /**
+     * @param $section
+     * @param $url
+     * @return mixed
+     */
+    public static function transformUrl($section, $url)
+    {
+        return static::instance()->getOne($section)->getURL($url);
+    }
+
+    /**
+     * @param $section
+     * @param $url
+     * @return mixed
+     */
+    public static function assembleURL($section, $url, $params = [])
+    {
+        return static::instance()->getOne($section)->assembleURL($url, $params);
+    }
+
+    /**
+     * @param $key
+     * @return Section
+     */
+    public function getOne($key)
+    {
+        return $this->getSections()->get($key);
+    }
+
+    /**
      * @return Section
      */
     public function getCurrent()
@@ -105,5 +134,18 @@ class SectionsManager
         $section = app(Section::class);
         $section->writeData($data);
         return $section;
+    }
+
+    /**
+     * Singleton
+     * @return SectionsManager
+     */
+    public static function instance()
+    {
+        static $instance;
+        if (!($instance instanceof SectionsManager)) {
+            $instance = app('mvc.sections');
+        }
+        return $instance;
     }
 }

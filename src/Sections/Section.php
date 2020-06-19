@@ -69,13 +69,55 @@ class Section
      */
     public function getURL($url = false)
     {
-        $url = $url ? $url : app('url')->to('/');
+        $url = $url ? $url : request()->root();
         $http = request()->getHttp();
         return str_replace(
             '://' . $http->getSubdomain() . '.' . $http->getRootDomain(),
             '://' . $this->subdomain . '.' . $http->getRootDomain(),
             $url
         );
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBaseUrl()
+    {
+        if ($this->baseUrl === null) {
+            $this->initBaseUrl();
+        }
+
+        return $this->baseUrl;
+    }
+
+    protected function initBaseUrl()
+    {
+        $baseUrl = request()->root();
+        $http = request()->getHttp();
+
+        $baseUrl = str_replace(
+            '://' . $this->getManager()->getCurrent()->getSubdomain() . '.' . $http->getRootDomain() . '.',
+            '://' . $this->getSubdomain() . '.' . $http->getRootDomain() . '.',
+            $baseUrl
+        );
+
+        $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * @param bool $url
+     * @return mixed
+     */
+    public function assembleURL($url = false, $params = [])
+    {
+        $url = $url ? $url : '/';
+
+        $url = $this->getBaseUrl() . $url;
+        if (count($params)) {
+            $url .= '?' . http_build_query($params);
+        }
+
+        return $url;
     }
 
     /**
