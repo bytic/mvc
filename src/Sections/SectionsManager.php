@@ -4,20 +4,26 @@ namespace Nip\Mvc\Sections;
 
 use Nip\Collections\AbstractCollection;
 
+
 /**
- * Class Sections
- *
+ * Class SectionsManager
+ * @package Nip\Mvc\Sections
  */
-class SectionsManager extends AbstractCollection
+class SectionsManager
 {
     protected $currentKey = null;
+
+    /**
+     * @var SectionsCollection
+     */
+    protected $sections = null;
 
     /**
      * @return Section
      */
     public function getCurrent()
     {
-        return $this->get($this->getCurrentKey());
+        return $this->getSections()->get($this->getCurrentKey());
     }
 
     /**
@@ -26,7 +32,7 @@ class SectionsManager extends AbstractCollection
     public function getCurrentKey()
     {
         if ($this->currentKey === null) {
-            $this->setCurrentKey($this->detectCurrentKey());
+            $this->setCurrentKey(SectionDetector::run($this->sections));
         }
 
         return $this->currentKey;
@@ -41,55 +47,63 @@ class SectionsManager extends AbstractCollection
     }
 
     /**
-     * @return string
+     * @return SectionsCollection
      */
-    public function detectCurrentKey()
+    public function getSections(): SectionsCollection
     {
-        $current = $this->detectFromConstant();
-        if (!$current) {
-            $current = $this->detectFromSubdomain();
-            if (!$current) {
-                $current = 'main';
-            }
+        if ($this->sections === null) {
+            $this->sections = new SectionsCollection();
+            $this->loadFromConfig();
         }
-
-        return $current;
+        return $this->sections;
     }
 
     /**
-     * @return bool|string
+     * @param SectionsCollection $sections
      */
-    public function detectFromConstant()
+    public function setSections(SectionsCollection $sections): void
     {
-        return false;
-//        return (defined('SPORTIC_SECTION')) ? SPORTIC_SECTION : false;
-    }
-
-    /**
-     * @return bool|mixed
-     */
-    public function detectFromSubdomain()
-    {
-        $subDomain = request()->getHttp()->getSubdomain();
-        foreach ($this->all() as $key => $section) {
-            if ($subDomain == $section->getSubdomain()) {
-                return $key;
-            }
-        }
-
-        return $subDomain;
+        $this->sections = $sections;
     }
 
     /**
      * @return void
+     * @deprecated no need to call init
      */
     public function init()
     {
+    }
+
+    /**
+     * @param $place
+     * @return mixed
+     */
+    public function visibleIn($place)
+    {
+        return $this->getSections()->filter(function ($item) use ($place) {
+            /** @var Section $item */
+            return $item->visibleIn($place);
+        });
+    }
+
+    protected function loadFromConfig()
+    {
         if (function_exists('config')) {
-            $data = config('sections.sections', []);
+            $data = config('mvc.sections', []);
             foreach ($data as $key => $row) {
-                $this->set($key, new Section($row->toArray()));
+                $this->sections->set($key, $this->newSection($row->toArray()));
             }
         }
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function newSection($data)
+    {
+        $section = app(Section::class);
+        $section->writeData($data);
+        return $section;
     }
 }

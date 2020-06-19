@@ -30,11 +30,25 @@ class Section
      */
     protected $path = null;
 
+    protected $icon_svg = null;
+
+    protected $baseUrl = null;
+
+    protected $visibleIn = [];
+
     /**
      * Section constructor.
      * @param array $data
      */
     public function __construct($data = [])
+    {
+        $this->writeData($data);
+    }
+
+    /**
+     * @param $data
+     */
+    public function writeData($data)
     {
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
@@ -55,7 +69,7 @@ class Section
      */
     public function getURL($url = false)
     {
-        $url = $url ? $url : \Nip\url()->to('/');
+        $url = $url ? $url : app('url')->to('/');
         $http = request()->getHttp();
         return str_replace(
             '://' . $http->getSubdomain() . '.' . $http->getRootDomain(),
@@ -144,10 +158,11 @@ class Section
     }
 
     /**
+     * @param string $place
      * @return bool
      */
-    public function isMenu()
+    public function visibleIn($place)
     {
-        return $this->menu === true;
+        return in_array($place, $this->visibleIn);
     }
 }
