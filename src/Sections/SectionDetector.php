@@ -14,21 +14,22 @@ class SectionDetector
      */
     public static function run($collection)
     {
-        return static::detect($collection);
+        $detector = new static();
+        return $detector->detect($collection);
     }
 
     /**
      * @param $collection
      * @return bool|int|mixed|string
      */
-    protected static function detect($collection)
+    public function detect($collection)
     {
-        $current = static::detectFromConstant();
+        $current = $this->detectFromConstant();
         if ($current) {
             return $current;
         }
-        $current = static::detectFromSubdomain($collection);
-        if (!$current) {
+        $current = $this->detectFromSubdomain($collection);
+        if ($current) {
             return $current;
         }
 
@@ -38,7 +39,7 @@ class SectionDetector
     /**
      * @return bool|string
      */
-    protected static function detectFromConstant()
+    protected function detectFromConstant()
     {
         return false;
 //        return (defined('SPORTIC_SECTION')) ? SPORTIC_SECTION : false;
@@ -48,9 +49,9 @@ class SectionDetector
      * @param $collection
      * @return bool|mixed
      */
-    protected static function detectFromSubdomain($collection)
+    protected function detectFromSubdomain($collection)
     {
-        $subDomain = request()->getHttp()->getSubdomain();
+        $subDomain = $this->getCurrentSubdomain();
         foreach ($collection as $key => $section) {
             if ($subDomain == $section->getSubdomain()) {
                 return $key;
@@ -58,5 +59,13 @@ class SectionDetector
         }
 
         return $subDomain;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    protected function getCurrentSubdomain()
+    {
+        return request()->getHttp()->getSubdomain();
     }
 }
