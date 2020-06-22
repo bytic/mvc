@@ -26,6 +26,9 @@
     "classmap": [
       "_legacy",
       "src"
+    ],
+    "files": [
+      "src/functions/common.php"
     ]
   },
   "autoload-dev": {
