@@ -2,6 +2,7 @@
 
 namespace Nip\Mvc\Sections;
 
+use Nip\Utility\Str;
 use Nip\Utility\Traits\DynamicPropertiesTrait;
 
 /**
@@ -30,7 +31,7 @@ class Section
      */
     protected $path = null;
 
-    protected $icon_svg = null;
+    protected $icon = null;
 
     protected $baseUrl = null;
 
@@ -61,6 +62,22 @@ class Section
     public function getSubdomain()
     {
         return $this->subdomain;
+    }
+
+    /**
+     * @return bool
+     */
+    public function printIcon()
+    {
+        if (empty($this->icon)) {
+            return '';
+        }
+        if (Str::contains($this->icon,'<path')) {
+            return '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"  focusable="false" aria-hidden="true" role="presentation">'
+                . $this->icon
+                . '</svg>';
+        }
+        return $this->icon;
     }
 
     /**
