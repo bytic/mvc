@@ -51,15 +51,15 @@ class MvcServiceProvider extends AbstractSignatureServiceProvider
     }
 
     /**
-     * @return Modules
+     * @return SectionsManager
      */
     protected function createSectionsManager()
     {
-        $sections = $this->getContainer()->has(SectionsManager::class) ?
-            $this->getContainer()->get(SectionsManager::class)
-            : new SectionsManager();
-        $sections->init();
-        return $sections;
+        if ($this->getContainer()->has(SectionsManager::class)) {
+            return $this->getContainer()->get(SectionsManager::class);
+        }
+
+        return new SectionsManager();
     }
 
     /**

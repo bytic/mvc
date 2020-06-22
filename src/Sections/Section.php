@@ -31,6 +31,11 @@ class Section
      */
     protected $path = null;
 
+    /**
+     * @var string
+     */
+    protected $folder = null;
+
     protected $icon = null;
 
     protected $baseUrl = null;
@@ -65,7 +70,7 @@ class Section
     }
 
     /**
-     * @return bool
+     * @return string
      */
     public function printIcon()
     {
@@ -123,6 +128,7 @@ class Section
 
     /**
      * @param bool $url
+     * @param array $params
      * @return mixed
      */
     public function assembleURL($url = false, $params = [])
