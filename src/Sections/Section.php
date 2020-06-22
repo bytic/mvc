@@ -117,10 +117,15 @@ class Section
         $baseUrl = request()->root();
         $http = request()->getHttp();
 
-        $baseUrl = str_replace(
-            '://' . $this->getManager()->getCurrent()->getSubdomain() . '.' . $http->getRootDomain(),
-            '://' . $this->getSubdomain() . '.' . $http->getRootDomain(),
+        $transform = [
+            '://' . $this->getManager()->getCurrent()->getSubdomain() . '.' . $http->getRootDomain()
+            => '://' . $this->getSubdomain() . '.' . $http->getRootDomain(),
+        ];
+
+        $baseUrl = strtr(
             $baseUrl
+            ,
+            $transform
         );
 
         $this->baseUrl = $baseUrl;

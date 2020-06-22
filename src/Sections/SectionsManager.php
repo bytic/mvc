@@ -42,9 +42,18 @@ class SectionsManager
      * @param $key
      * @return Section
      */
-    public function getOne($key)
+    public function get($key)
     {
         return $this->getSections()->get($key);
+    }
+
+    /**
+     * @param $key
+     * @return Section
+     */
+    public function getOne($key)
+    {
+        return $this->get($key);
     }
 
     /**
