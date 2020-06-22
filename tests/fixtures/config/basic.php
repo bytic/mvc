@@ -2,7 +2,7 @@
 
 
 return [
-    'modules' => ['admin', 'frontend'],
+    'modules' => ['admin', 'frontend', 'api'],
     'sections' => [
         [
             'name' => 'Section 1',

@@ -7,20 +7,6 @@
       "email": "hello@gabrielsolomon.ro"
     }
   ],
-  "autoload": {
-    "psr-4": {
-      "Nip\\Mvc\\": "src/"
-    },
-    "classmap": [
-      "src"
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Nip\\Mvc\\Tests\\": "tests/src",
-      "Nip\\Mvc\\Fixtures\\": "tests/fixtures"
-    }
-  },
   "require": {
     "php": ">=7.0",
     "bytic/collections": "^1.0",
@@ -32,5 +18,20 @@
     "bytic/http": "^1.0",
     "phpunit/phpunit": "^7.2|^8.0|^9.0",
     "mockery/mockery": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nip\\Mvc\\": "src/"
+    },
+    "classmap": [
+      "_legacy",
+      "src"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Nip\\Mvc\\Tests\\": "tests/src",
+      "Nip\\Mvc\\Fixtures\\": "tests/fixtures"
+    }
   }
 }
