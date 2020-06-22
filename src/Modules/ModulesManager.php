@@ -14,6 +14,13 @@ class ModulesManager
      */
     protected $modules = null;
 
+    /**
+     * @return ModulesCollection
+     */
+    public function getNames()
+    {
+        return $this->getModules()->all();
+    }
 
     /**
      * @param $name

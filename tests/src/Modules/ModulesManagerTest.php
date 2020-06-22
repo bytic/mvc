@@ -14,6 +14,14 @@ use Nip\Mvc\Tests\AbstractTest;
  */
 class ModulesManagerTest extends AbstractTest
 {
+    public function test_getNames()
+    {
+        $this->prepareConfig();
+        $manager = new ModulesManager();
+
+        self::assertSame(['admin', 'frontend', 'api'], $manager->getNames());
+    }
+
     public function test_loadFromConfig()
     {
         $this->prepareConfig();
