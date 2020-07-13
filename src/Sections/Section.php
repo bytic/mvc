@@ -52,6 +52,19 @@ class Section
     }
 
     /**
+     * @inheritDoc
+     */
+    public function __call(string $name, array $arguments)
+    {
+        if (strpos($name, 'is') ===0) {
+            $section = substr($name, 2);
+            $section = inflector()->underscore($section);
+            return $this->visibleIn($section);
+        }
+        throw new \Exception("Invalid call " . $name . " on " . __CLASS__ . "");
+    }
+
+    /**
      * @param $data
      */
     public function writeData($data)

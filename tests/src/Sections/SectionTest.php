@@ -21,6 +21,16 @@ class SectionTest extends AbstractTest
         self::assertFalse($section->visibleIn('frontend'));
     }
 
+    public function test_visibleIn_magicCall()
+    {
+        $section = new Section();
+        $section->writeData(['visibleIn' => ['admin','admin_menu']]);
+
+        self::assertTrue($section->isAdmin());
+        self::assertTrue($section->isAdminMenu());
+        self::assertFalse($section->isFrontend());
+    }
+
     public function test_printIcon()
     {
         $section = new Section();
