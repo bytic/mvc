@@ -105,12 +105,12 @@ class Section
     public function getURL($url = false)
     {
         $url = $url ? $url : request()->root();
-        $http = request()->getHttp();
-        return str_replace(
-            '://' . $http->getSubdomain() . '.' . $http->getRootDomain(),
-            '://' . $this->subdomain . '.' . $http->getRootDomain(),
-            $url
-        );
+
+        if (strpos($url, 'http') === 0) {
+            return $this->getManager()->getUrlTransformer()->transform($url, $this);
+        }
+
+        return $this->getBaseUrl() . $url;
     }
 
     /**
@@ -128,20 +128,8 @@ class Section
     protected function initBaseUrl()
     {
         $baseUrl = request()->root();
-        $http = request()->getHttp();
 
-        $transform = [
-            '://' . $this->getManager()->getCurrent()->getSubdomain() . '.' . $http->getRootDomain()
-            => '://' . $this->getSubdomain() . '.' . $http->getRootDomain(),
-        ];
-
-        $baseUrl = strtr(
-            $baseUrl
-            ,
-            $transform
-        );
-
-        $this->baseUrl = $baseUrl;
+        $this->baseUrl = $this->getManager()->getUrlTransformer()->transform($baseUrl, $this);
     }
 
     /**

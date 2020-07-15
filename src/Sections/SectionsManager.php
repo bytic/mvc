@@ -2,7 +2,7 @@
 
 namespace Nip\Mvc\Sections;
 
-use Nip\Collections\AbstractCollection;
+use Nip\Mvc\Sections\UrlTransformer\HasUrlTransformerTrait;
 
 
 /**
@@ -11,6 +11,8 @@ use Nip\Collections\AbstractCollection;
  */
 class SectionsManager
 {
+    use HasUrlTransformerTrait;
+
     protected $currentKey = null;
 
     /**
