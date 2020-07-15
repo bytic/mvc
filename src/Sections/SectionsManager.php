@@ -4,7 +4,6 @@ namespace Nip\Mvc\Sections;
 
 use Nip\Mvc\Sections\UrlTransformer\HasUrlTransformerTrait;
 
-
 /**
  * Class SectionsManager
  * @package Nip\Mvc\Sections

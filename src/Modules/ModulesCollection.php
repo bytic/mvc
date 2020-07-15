@@ -10,5 +10,4 @@ use Nip\Collections\AbstractCollection;
  */
 class ModulesCollection extends AbstractCollection
 {
-
 }

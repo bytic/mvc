@@ -35,7 +35,7 @@ class ModulesManagerTest extends AbstractTest
      */
     protected function prepareConfig($file = 'basic')
     {
-        $data = require TEST_FIXTURE_PATH . DIRECTORY_SEPARATOR. 'config'. DIRECTORY_SEPARATOR . $file.'.php';
+        $data = require TEST_FIXTURE_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $file . '.php';
         $config = new Config(['mvc' => $data]);
         Container::getInstance()->set('config', $config);
     }
