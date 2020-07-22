@@ -22,6 +22,15 @@ class ModulesManagerTest extends AbstractTest
         self::assertSame(['admin', 'frontend', 'api'], $manager->getNames());
     }
 
+    public function test_hasModule()
+    {
+        $this->prepareConfig();
+        $manager = new ModulesManager();
+
+        self::assertTrue($manager->hasModule('admin'));
+        self::assertFalse($manager->hasModule('dnf'));
+    }
+
     public function test_loadFromConfig()
     {
         $this->prepareConfig();

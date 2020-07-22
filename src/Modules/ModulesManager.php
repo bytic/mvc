@@ -15,11 +15,20 @@ class ModulesManager
     protected $modules = null;
 
     /**
-     * @return ModulesCollection
+     * @return array
      */
     public function getNames()
     {
-        return $this->getModules()->all();
+        return $this->getModules()->values();
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function hasModule($name)
+    {
+        return $this->getModules()->has($name);
     }
 
     /**
@@ -87,7 +96,7 @@ class ModulesManager
         if (function_exists('config')) {
             $data = config('mvc.modules', ['admin', 'frontend']);
             foreach ($data as $key => $row) {
-                $this->modules->set($key, $row);
+                $this->modules->set($row, $row);
             }
         }
     }
