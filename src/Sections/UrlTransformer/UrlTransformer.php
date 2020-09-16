@@ -42,7 +42,15 @@ class UrlTransformer
             '://' . $rootDomain => $replace,
         ];
 
-        $url = strtr($url, $transform);
+        foreach ($transform as $search => $replace) {
+            $pos = strpos($url, $search);
+            if ($pos === false || $pos > 5) {
+                continue;
+            }
+            $url = substr_replace($url, '#####', $pos, strlen($search));
+            $url = str_replace('#####', $replace, $url);
+        }
+
         return $url;
     }
 
