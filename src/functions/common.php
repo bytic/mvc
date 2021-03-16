@@ -21,3 +21,14 @@ function mvc_sections()
     }
     return app('mvc.sections');
 }
+
+/**
+ * @param $section
+ * @param $url
+ * @return string
+ */
+function mvc_section_url($section, $url = false): string
+{
+    $section = mvc_sections()->getOne($section);
+    return $section->getURL($url);
+}
