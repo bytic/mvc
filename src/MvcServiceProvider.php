@@ -2,7 +2,7 @@
 
 namespace Nip\Mvc;
 
-use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
+use ByTIC\PackageBase\BaseBootableServiceProvider;
 use Nip\Mvc\Modules\ModulesManager;
 use Nip\Mvc\Sections\SectionsManager;
 
@@ -10,8 +10,10 @@ use Nip\Mvc\Sections\SectionsManager;
  * Class MvcServiceProvider
  * @package Nip\Mvc
  */
-class MvcServiceProvider extends AbstractSignatureServiceProvider
+class MvcServiceProvider extends BaseBootableServiceProvider
 {
+    public const NAME = 'mvc';
+
     /**
      * {@inheritdoc}
      */

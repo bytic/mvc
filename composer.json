@@ -9,6 +9,7 @@
   ],
   "require": {
     "php": "^7.0|^8.0",
+    "bytic/package-base": "^1.0",
     "bytic/collections": "^1.0",
     "bytic/container": "^1.0|^2.0",
     "bytic/config": "^1.0",

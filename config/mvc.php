@@ -10,4 +10,8 @@ return [
 //            'visibleIn' => ['admin'],
 //        ],
     ],
+    'defaults' => [
+        'module' => 'frontend',
+        'section' => null,
+    ],
 ];

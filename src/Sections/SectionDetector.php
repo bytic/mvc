@@ -2,6 +2,8 @@
 
 namespace Nip\Mvc\Sections;
 
+use Nip\Mvc\Utility\PackageConfig;
+
 /**
  * Class SectionDetector
  * @package Nip\Mvc\Sections
@@ -28,6 +30,10 @@ class SectionDetector
         if ($current) {
             return $current;
         }
+        $current = $this->detectFromConfig();
+        if ($current) {
+            return $current;
+        }
         $current = $this->detectFromSubdomain($collection);
         if ($current) {
             return $current;
@@ -39,12 +45,19 @@ class SectionDetector
     /**
      * @return bool|string
      */
+    protected function detectFromConfig()
+    {
+        return PackageConfig::value('defaults.section');
+    }
+
+    /**
+     * @return bool|string
+     */
     protected function detectFromConstant()
     {
         return false;
 //        return (defined('SPORTIC_SECTION')) ? SPORTIC_SECTION : false;
     }
-
     /**
      * @param $collection
      * @return bool|mixed

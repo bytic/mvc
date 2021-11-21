@@ -3,6 +3,7 @@
 namespace Nip\Mvc\Sections;
 
 use Nip\Mvc\Sections\UrlTransformer\HasUrlTransformerTrait;
+use Nip\Mvc\Utility\PackageConfig;
 
 /**
  * Class SectionsManager
@@ -127,11 +128,9 @@ class SectionsManager
 
     protected function loadFromConfig()
     {
-        if (function_exists('config')) {
-            $data = config('mvc.sections', []);
-            foreach ($data as $key => $row) {
-                $this->sections->set($key, $this->newSection($row->toArray()));
-            }
+        $data = PackageConfig::value('sections', []);
+        foreach ($data as $key => $row) {
+            $this->sections->set($key, $this->newSection($row->toArray()));
         }
     }
 
