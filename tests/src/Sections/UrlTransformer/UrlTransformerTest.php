@@ -15,7 +15,12 @@ class UrlTransformerTest extends \Nip\Mvc\Tests\AbstractTest
     public function test_transform()
     {
         $request = new Request(
-            [], [], [], [],[], [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [
             'SERVER_NAME' => 'current.domain.com'
         ]
         );

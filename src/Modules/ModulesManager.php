@@ -8,7 +8,6 @@ namespace Nip\Mvc\Modules;
  */
 class ModulesManager
 {
-
     /**
      * @var ModulesCollection
      */
